@@ -1,8 +1,11 @@
 package Yusi.YusiSpring.controller;
 
+import Yusi.YusiSpring.domain.Member;
 import Yusi.YusiSpring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 //이 컨트롤러를 해놓으면 기능은 아무것도 없지만 스프링 프로젝트를 생성할 때
@@ -22,5 +25,20 @@ public class MemberController {
     //생성자에 Autowired가 있다면 스프링 컨테이너의 멤버 서비스를 가지고 와서 연결시켜준다.
     public MemberController(MemberService memberService){
         this.memberService = memberService;
+    }
+
+    @GetMapping("/members/new")
+    //url에 직접 치는 방법을 get방식이라고 한다.
+    public String createForm(){
+        return "members/createMemberForm";
+    }
+    @PostMapping("/members/new")
+    public String create(MemberForm form){
+        Member member = new Member();
+        member.setName(form.getName());
+
+        memberService.join(member);
+
+        return "redirect:/";
     }
 }
