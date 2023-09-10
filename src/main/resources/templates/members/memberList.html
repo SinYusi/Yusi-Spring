@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>이름</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="member : ${members}"> <!-- ${members}를 하면 model 안의 값을 꺼내오는 것이다-->
+        <td th:text="${member.id}"></td> <!-- getname getid 메서드에 접근해서 알아서 출력해줌-->
+        <td th:text="${member.name}"></td>
+      </tr> <!-- 반복문 문법-->
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>
