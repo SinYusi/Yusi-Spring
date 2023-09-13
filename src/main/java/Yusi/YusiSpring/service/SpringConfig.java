@@ -1,12 +1,22 @@
 package Yusi.YusiSpring.service;
 
+import Yusi.YusiSpring.repository.JdbcMemberRepository;
 import Yusi.YusiSpring.repository.MemberRepository;
 import Yusi.YusiSpring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
 @Configuration
 public class SpringConfig {
+    private DataSource dataSource;
+    @Autowired
+    public SpringConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+    //spring boot에서 만들어준 datasource를 주입해주는 과정
     @Bean //이 Bean이 있으면 아래 로직을 호출해서 스프링 빈에 등록해준다.
     public MemberService memberService(){
         return new MemberService(memberRepository());
@@ -15,6 +25,7 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository(){
-        return new MemoryMemberRepository();
+   //     return new MemoryMemberRepository();
+        return new JdbcMemberRepository(dataSource);
     }
 }
