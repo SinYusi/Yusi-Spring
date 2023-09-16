@@ -3,10 +3,14 @@ package Yusi.YusiSpring.service;
 import Yusi.YusiSpring.domain.Member;
 import Yusi.YusiSpring.repository.MemberRepository;
 import Yusi.YusiSpring.repository.MemoryMemberRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 //서비스 클래스는 비즈니스에 관련된 네이밍을 해야한다.
+@Transactional
+//데이터를 저장하거나 변경하려면 트랜잭션이 항상 필요하다.
+//데이터 변경은 모두 트랜잭션 안에서 진행되어야 한다.
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -16,7 +20,7 @@ public class MemberService {
     //테스트에서 같은 저장소를 사용하기 위한 생성자.
 
     //멤버 리포지토리
-
+    //@Transactional 회원가입 할 때만 필요하니 여기에 트랜잭션을 붙여도 된다.
     /**
      *회원 가입
      */
