@@ -26,6 +26,9 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository(){
    //     return new MemoryMemberRepository();
+        //return new JdbcMemberRepository(dataSource);
         return new JdbcMemberRepository(dataSource);
+        //이렇게 하면 웹 어플리케이션을 띄워서 테스트를 해볼 필요가 없다.
+        //물론 데이터베이스는 띄워야 한다.
     }
 }
